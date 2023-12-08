@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import tensorflow as tf
+import seaborn
 
 PATH = os.path.dirname('src/TrainingData/')
 train_dir = PATH
@@ -119,11 +120,29 @@ history = model.fit(train_dataset,
                     epochs=initial_epochs,
                     validation_data=validation_dataset)
 
+model.save('src/model') # Saves the model.
+
 acc = history.history['accuracy']
 val_acc = history.history['val_accuracy']
 
 loss = history.history['loss']
 val_loss = history.history['val_loss']
+
+# Confusion Matrix
+predictions = model.predict(validation_dataset)
+y_true = np.concatenate([labels for _, labels in validation_dataset])
+y_pred = np.argmax(predictions, axis=1)
+
+# Create confusion matrix
+conf_mat = tf.math.confusion_matrix(y_true, y_pred)
+
+# Plot the confusion matrix using Seaborn
+plt.figure(figsize=(8, 8))
+seaborn.heatmap(conf_mat, annot=True, fmt='d', cmap='Blues', xticklabels=class_names, yticklabels=class_names)
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.title('Confusion Matrix')
+plt.show()
 
 plt.figure(figsize=(8, 8))
 plt.subplot(2, 1, 1)

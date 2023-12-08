@@ -2,3 +2,6 @@ setuptools
 tensorflow
 numpy
 matplotlib
+seaborn
+scikit-learn
+opencv-python
