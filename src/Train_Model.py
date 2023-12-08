@@ -11,7 +11,7 @@ PATH = os.path.dirname('src/TrainingData/')
 train_dir = PATH
 BATCH_SIZE = 8
 IMG_SIZE = (160, 160)
-correct_seed = 123 # This is to ensure that the train_dataset and validation_dataset
+correct_seed = 121 # This is to ensure that the train_dataset and validation_dataset
 # do not have the same images.
 
 train_dataset = tf.keras.utils.image_dataset_from_directory(
